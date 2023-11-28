@@ -8,6 +8,8 @@ env:
   # https://github.com/glotzerlab/hoomd-component-template/
 
   #############################################################################################
+  # HOOMD-blue version to build.
+  HOOMD_BLUE_VERSION: 4.3.0
   # prevent deadlocked MPI tests from causing the job to cancel
   MPIEXEC_TIMEOUT: 3000
   # allow mpirun to execute as root in the tests
@@ -21,6 +23,7 @@ env:
   _HOOMD_SKIP_CPU_TESTS_WHEN_GPUS_PRESENT_: 1
   # import HOOMD out of the build directory
   PYTHONPATH: ${{ github.workspace }}/install
+
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -66,6 +69,7 @@ jobs:
         repository: glotzerlab/hoomd-blue
         path: hoomd-blue
         submodules: true
+        ref: v${{ env.HOOMD_BLUE_VERSION }}
     - name: Configure HOOMD-blue
       run: |
         cmake -B build-hoomd-blue -S hoomd-blue \
@@ -74,7 +78,12 @@ jobs:
               -DENABLE_GPU=${ENABLE_GPU} \
               -DENABLE_MPI=${ENABLE_MPI} \
               -DCUDA_ARCH_LIST="70" \
+              -DBUILD_TESTING=OFF \
+              -DPLUGINS="" \
               -DCMAKE_INSTALL_PREFIX=${GITHUB_WORKSPACE}/install
+      env:
+        ENABLE_GPU: ${{ matrix.enable_gpu }}
+        ENABLE_MPI: ${{ matrix.enable_mpi }}
     - name: Build HOOMD-blue
       run: ninja install -j $(($(getconf _NPROCESSORS_ONLN) + 2))
       working-directory: build-hoomd-blue
