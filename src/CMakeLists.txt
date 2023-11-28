@@ -8,7 +8,6 @@ set(_${COMPONENT_NAME}_sources
 
 # TODO: List all GPU C++ source code files in _${COMPONENT_NAME}_cu_sources.
 set(_${COMPONENT_NAME}_cu_sources
-    PotentialPairExampleGPUKernel.cu
     )
 
 # TODO: List all Python modules in files.
