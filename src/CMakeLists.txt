@@ -44,7 +44,7 @@ install(TARGETS _${COMPONENT_NAME}
         )
 
 # Install the Python package.
-install(FILES ${python_files}
+install(FILES ${files}
         DESTINATION ${PYTHON_SITE_INSTALL_DIR}/${COMPONENT_NAME}
        )
 
