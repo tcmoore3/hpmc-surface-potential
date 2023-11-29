@@ -10,8 +10,8 @@ set(_${COMPONENT_NAME}_sources
 set(_${COMPONENT_NAME}_cu_sources
     )
 
-# TODO: List all Python modules in files.
-set(files
+# TODO: List all Python modules in python_files.
+set(python_files
     __init__.py
     version.py
     )
@@ -43,12 +43,12 @@ install(TARGETS _${COMPONENT_NAME}
         )
 
 # Install the Python package.
-install(FILES ${files}
+install(FILES ${python_files}
         DESTINATION ${PYTHON_SITE_INSTALL_DIR}/${COMPONENT_NAME}
        )
 
 # Copy the Python package to the build directory.
-copy_files_to_build("${files}" "hoomd-component-${COMPONENT_NAME}" "*.py")
+copy_files_to_build("${python_files}" "hoomd-component-${COMPONENT_NAME}" "*.py")
 
 # Python tests.
 add_subdirectory(pytest)
