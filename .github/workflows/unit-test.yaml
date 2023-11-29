@@ -61,9 +61,9 @@ jobs:
           enable_mpi: 'ON'
 
     steps:
-    - name: Cache HOOMD-blue build
+    - name: Restore cached HOOMD-blue build
       id: cache
-      uses: actions/cache@v3
+      uses: actions/cache/restore@v3
       with:
         path: install
         key: hoomd-blue-${{ env.HOOMD_BLUE_VERSION }}-${{ runner.os }}-mpi-${{ matrix.enable_mpi }}-gpu-${{ matrix.enable_gpu }}
@@ -94,6 +94,11 @@ jobs:
       if: steps.cache.outputs.cache-hit != 'true'
       run: ninja install -j $(($(getconf _NPROCESSORS_ONLN) + 2))
       working-directory: build-hoomd-blue
+    - name: Cache HOOMD-blue build
+      uses: actions/cache/save@v3
+      with:
+        path: install
+        key: hoomd-blue-${{ env.HOOMD_BLUE_VERSION }}-${{ runner.os }}-mpi-${{ matrix.enable_mpi }}-gpu-${{ matrix.enable_gpu }}
 
     - name: Checkout component
       uses: actions/checkout@v4
