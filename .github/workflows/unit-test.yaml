@@ -66,7 +66,7 @@ jobs:
       uses: actions/cache/restore@v3
       with:
         path: install
-        key: hoomd-blue-${{ env.HOOMD_BLUE_VERSION }}-${{ runner.os }}-mpi-${{ matrix.enable_mpi }}-gpu-${{ matrix.enable_gpu }}
+        key: hoomd-blue-${{ env.HOOMD_BLUE_VERSION }}-2023.11.27-cuda120_gcc11_py310-mpi-${{ matrix.enable_mpi }}-gpu-${{ matrix.enable_gpu }}
     - name: Checkout HOOMD-blue
       if: steps.cache.outputs.cache-hit != 'true'
       uses: actions/checkout@v4
@@ -99,7 +99,7 @@ jobs:
       uses: actions/cache/save@v3
       with:
         path: install
-        key: hoomd-blue-${{ env.HOOMD_BLUE_VERSION }}-${{ runner.os }}-mpi-${{ matrix.enable_mpi }}-gpu-${{ matrix.enable_gpu }}
+        key: hoomd-blue-${{ env.HOOMD_BLUE_VERSION }}-2023.11.27-cuda120_gcc11_py310-mpi-${{ matrix.enable_mpi }}-gpu-${{ matrix.enable_gpu }}
 
     - name: Checkout component
       uses: actions/checkout@v4
