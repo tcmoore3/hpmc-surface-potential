@@ -95,6 +95,7 @@ jobs:
       run: ninja install -j $(($(getconf _NPROCESSORS_ONLN) + 2))
       working-directory: build-hoomd-blue
     - name: Cache HOOMD-blue build
+      if: steps.cache.outputs.cache-hit != 'true'
       uses: actions/cache/save@v3
       with:
         path: install
