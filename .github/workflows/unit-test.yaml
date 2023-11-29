@@ -45,6 +45,7 @@ jobs:
     container:
       image: glotzerlab/ci:2023.11.27-cuda120_gcc11_py310
     strategy:
+      fail-fast: false
       matrix:
         include:
         - name: 'CPU'
