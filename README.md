@@ -10,6 +10,8 @@ It includes:
 * An example unit test.
 * Pre-commit configuration.
 * GitHub Actions configuration.
+  * Unit tests.
+  * Automatic release creation on tags starting with `v`, (e.g. `v1.0.0`).
 
 ## Building the component
 
@@ -44,13 +46,13 @@ To create a new component:
 
 1. Fork the [hoomd-component-template](https://github.com/glotzerlab/hoomd-component-template/)
     repository.
-2. Add C++ and Python files to `src/`.
-3. Address all TODO comments. These explain how to set your package name, add C++ files, add unit
-    tests, and other tasks. Use [ripgrep](https://github.com/BurntSushi/ripgrep) to find all TODO
-    messages:
+2. Address all TODO comments. These explain how to set your package name, add C++ files, add unit
+    tests, and other tasks. You can se [ripgrep](https://github.com/BurntSushi/ripgrep) to find all
+    TODO messages:
     ```
     $ rg TODO . .github
     ```
+3. Add C++ and Python files to `src/`.
 4. Add unit tests in `src/pytest` using [pytest](https://docs.pytest.org).
 5. Format and check code style with [pre-commit](https://pre-commit.com/).
     ```
@@ -60,6 +62,20 @@ To create a new component:
     workflow will run and test your that your code compiles on the CPU (with and without MPI), and
     on the GPU (with and without MPI). The workflow also runs the unit tests on the CPU. You should
     run GPU unit tests locally, GitHub does not provide free GPU runners for GitHub Actions.
+7. When you are ready to release, bump the version number with [bump2version](https://github.com/c4urself/bump2version).
+    ```
+    bump2version minor
+    ```
+    Commit and push the changes to a branch, and make a pull request. After merging the working
+    pull request, tag the commit and push the tags. For example:
+    ```
+    git switch trunk
+    git pull origin trunk
+    git tag -a v0.1.0
+    git push origin --tags
+    ```
+    The GitHub Actions workflow `release.yaml` will automatically create a GitHub release with
+    a change log for each tag.
 
 ## Maintaining your component
 
@@ -85,5 +101,4 @@ When appropriate:
 * Add [Sphinx](https://www.sphinx-doc.org) documentation and publish it on
 [readthedocs](https://www.readthedocs.org).
 * Add a [conda-forge](https://conda-forge.org/) package.
-* Announce your component on the [hoomd-users](https://groups.google.com/g/hoomd-users) mailing
-  list.
+* Announce your component on the [HOOMD-blue discussion board](https://github.com/glotzerlab/hoomd-blue/discussions).
