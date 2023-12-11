@@ -1,15 +1,15 @@
 # HOOMD-blue component template
 
-`hoomd-component-template` provides a framework to develop a component that extends
-[HOOMD-blue](https://glotzerlab.engin.umich.edu/hoomd-blue/). It includes template C++ and Python
-modules, an example unit test, CMake scripts to build the component, and GitHub Actions
-configurations.
+`hoomd-component-template` provides a framework to develop components that extend
+[**HOOMD-blue**](https://glotzerlab.engin.umich.edu/hoomd-blue/). It includes template C++ and
+Python modules, an example unit test, CMake scripts to build the component, and GitHub Actions
+workflows.
 
 ## Building the component
 
 To build this component:
 
-1. Build and install HOOMD-blue from source.
+1. Build and install **HOOMD-blue** from source.
 2. Obtain the component's source.
     ```
     $ git clone https://github.com/glotzerlab/hoomd-component-template
@@ -37,17 +37,17 @@ import hoomd.template
 To create a new component:
 
 1. Fork [hoomd-component-template](https://github.com/glotzerlab/hoomd-component-template/).
-2. Address all **TODO** comments (including those in `.github/*`)
+2. Address all **TODO** comments (including those in `.github/`)
 3. Add C++ and Python files to `src/`.
 4. Add unit tests in `src/pytest`.
 5. Format and check code style with [pre-commit](https://pre-commit.com/).
 
 ## Using the provided GitHub Actions configuration
 
-When you push your changes to GitHub and, the [unit test workflow](.github/workflows/unit-test.yaml)
-will run and test your that your code compiles on the CPU (with and without MPI), and
-on the GPU (with and without MPI). The workflow also runs the unit tests on the CPU. You should
-run GPU unit tests locally, GitHub does not provide free GPU runners for GitHub Actions.
+When you push your changes to GitHub, the [unit test workflow](.github/workflows/unit-test.yaml)
+compile your code on the CPU (with and without MPI) and on the GPU (with and without MPI). The
+workflow also executes the unit tests on the CPU. You should run GPU unit tests locally, as GitHub
+does not provide free GPU runners for GitHub Actions.
 
 When you push a new tag, the [release workflow](.github/workflows/release.yaml) will create a
 new GitHub release with automatically generated release notes.
@@ -57,11 +57,12 @@ new GitHub release with automatically generated release notes.
 The HOOMD-blue developers will periodically update
 [hoomd-component-template](https://github.com/glotzerlab/hoomd-component-template/), including
 updates to the GitHub Actions workflow, pre-commit configuration, and CMake scripts. Merge these
-changes into your fork to to test with the latest version of HOOMD-blue.
+changes into your fork to support the latest version of HOOMD-blue.
 
 ## Documenting and releasing your component
 
-TODO: Document your component in `README.md` (this file).
+TODO: Document your component in `README.md` (this file) and remove documentation relevant to the
+template.
 
 When appropriate:
 
