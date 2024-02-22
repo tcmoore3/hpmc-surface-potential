@@ -1,5 +1,7 @@
 target-version = "py38"
 
+[lint]
+
 extend-select = [
     "A",
     "B",
@@ -31,11 +33,8 @@ ignore = [
 "__init__.py" = ["F401", # __init__.py import submodules for use by the package importer.
 ]
 
-[pydocstyle]
+[lint.pydocstyle]
 convention = "google"
-
-[format]
-quote-style = "single"
 
 [lint.flake8-import-conventions]
 # Prefer no import aliases
@@ -48,3 +47,6 @@ banned-from = ["hoomd"]
 "numpy" = ["np"]
 "pandas" = ["pd"]
 "matplotlib" = ["mpl"]
+
+[format]
+quote-style = "single"
