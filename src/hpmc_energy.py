@@ -18,7 +18,7 @@ class ExampleExternal(hoomd.hpmc.external.External):
         pass
 
 
-class ExampleExternal(hoomd.hpmc.pair.Pair):
+class ExamplePair(hoomd.hpmc.pair.Pair):
     """An example pair potential for HPMC."""
 
     _cpp_class_name = 'ExamplePairPotential'

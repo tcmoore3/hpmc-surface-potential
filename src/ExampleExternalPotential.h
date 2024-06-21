@@ -24,7 +24,6 @@ class ExampleExternalPotential : public PairPotential
     ExampleExternalPotential(std::shared_ptr<SystemDefinition> sysdef);
     virtual ~ExampleExternalPotential() { }
 
-
     protected:
     virtual LongReal particleEnergyImplementation(unsigned int type_i,
                                                   const vec3<LongReal>& r_i,
@@ -50,7 +49,6 @@ class ExampleExternalPotential : public PairPotential
 
     /// Parameters per type.
     std::vector<ParamType> m_params;
-
     };
 
 namespace detail

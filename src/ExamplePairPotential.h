@@ -13,7 +13,7 @@ namespace hpmc
     {
 
 /*** Example pair potential for use with HPMC simulations.
-*/
+ */
 class ExamplePairPotential : public PairPotential
     {
     public:
@@ -36,7 +36,7 @@ class ExamplePairPotential : public PairPotential
     void setParamsPython(pybind11::tuple particle_types, pybind11::dict params);
 
     /// Get type-pair-dependent parameters.
-    pybind11::dict getParamsPython(pybind11:tuple particle_types);
+    pybind11::dict getParamsPython(pybind11 : tuple particle_types);
 
     protected:
     /// per-type-pair parameters
@@ -54,7 +54,6 @@ class ExamplePairPotential : public PairPotential
         LongReal m_A;
         LongReal m_B;
         LongReal m_r_cut;
-
         };
 
     /// Parameters per type pair.

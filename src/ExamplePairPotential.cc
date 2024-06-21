@@ -8,20 +8,19 @@ namespace hoomd
 namespace hpmc
     {
 
-ExamplePairPotential::ExamplePairPotential(
-    std::shared_ptr<SystemDefinition> sysdef)
+ExamplePairPotential::ExamplePairPotential(std::shared_ptr<SystemDefinition> sysdef)
     : PairPotential(sysdef), m_params(m_type_param_index.getNumElements())
     {
     }
 
 LongReal ExamplePairPotential::energy(const LongReal r_squared,
-                                                           const vec3<LongReal>& r_ij,
-                                                           const unsigned int type_i,
-                                                           const quat<LongReal>& q_i,
-                                                           const LongReal charge_i,
-                                                           const unsigned int type_j,
-                                                           const quat<LongReal>& q_j,
-                                                           const LongReal charge_j) const
+                                      const vec3<LongReal>& r_ij,
+                                      const unsigned int type_i,
+                                      const quat<LongReal>& q_i,
+                                      const LongReal charge_i,
+                                      const unsigned int type_j,
+                                      const quat<LongReal>& q_j,
+                                      const LongReal charge_j) const
     {
     unsigned int param_index = m_type_param_index(type_i, type_j);
     const auto& param = m_params[param_index];
@@ -32,16 +31,14 @@ LongReal ExamplePairPotential::energy(const LongReal r_squared,
     return energy;
     }
 
-LongReal
-ExamplePairPotential::computeRCutNonAdditive(unsigned int type_i,
-                                                                  unsigned int type_j) const
+LongReal ExamplePairPotential::computeRCutNonAdditive(unsigned int type_i,
+                                                      unsigned int type_j) const
     {
     unsigned int param_index = m_type_param_index(type_i, type_j);
     return m_params[param_index].m_r_cut;
     }
 
-void ExamplePairPotential::setParamsPython(pybind11::tuple particle_types,
-                                                                pybind11::dict params)
+void ExamplePairPotential::setParamsPython(pybind11::tuple particle_types, pybind11::dict params)
     {
     auto pdata = m_sysdef->getParticleData();
     auto type_i = pdata->getTypeByName(particle_types[0].cast<std::string>());
@@ -54,8 +51,7 @@ void ExamplePairPotential::setParamsPython(pybind11::tuple particle_types,
     notifyRCutChanged();
     }
 
-pybind11::dict
-ExamplePairPotential::getParamsPython(pybind11::tuple particle_types)
+pybind11::dict ExamplePairPotential::getParamsPython(pybind11::tuple particle_types)
     {
     auto pdata = m_sysdef->getParticleData();
     auto type_i = pdata->getTypeByName(particle_types[0].cast<std::string>());
@@ -85,14 +81,11 @@ pybind11::dict ExamplePairPotential::ParamType::asDict()
     return pydict;
     }
 
-
 namespace detail
     {
 void export_ExamplePairPotential(pybind11::module& m)
     {
-    pybind11::class_<ExamplePairPotential,
-                     PairPotential,
-                     std::shared_ptr<ExamplePairPotential>>(
+    pybind11::class_<ExamplePairPotential, PairPotential, std::shared_ptr<ExamplePairPotential>>(
         m,
         "ExamplePairPotential")
         .def(pybind11::init<std::shared_ptr<SystemDefinition>>())
