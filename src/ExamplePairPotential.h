@@ -36,7 +36,7 @@ class ExamplePairPotential : public PairPotential
     void setParamsPython(pybind11::tuple particle_types, pybind11::dict params);
 
     /// Get type-pair-dependent parameters.
-    pybind11::dict getParamsPython(pybind11 : tuple particle_types);
+    pybind11::dict getParamsPython(pybind11::tuple particle_types);
 
     protected:
     /// per-type-pair parameters

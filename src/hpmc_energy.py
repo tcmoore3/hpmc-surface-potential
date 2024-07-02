@@ -3,26 +3,54 @@
 
 """Template HOOMD-blue component."""
 
-
 import hoomd
 from hoomd.hpmc_energy import _hpmc_energy
 
 
 class ExampleExternal(hoomd.hpmc.external.External):
-    """An example external potential for HPMC."""
+    """An example external potential for HPMC.
+
+    TODO: document the class.
+
+    """
 
     _cpp_class_name = 'ExampleExternalPotential'
     _ext_module = _hpmc_energy
 
     def __init__(self):
-        pass
+        params = hoomd.data.typeparam.TypeParameter(
+            'params',
+            'particle_type',
+            hoomd.data.parameterdicts.TypeParameterDict(epsilon=float, len_keys=2),
+        )
+        self._add_typeparam(params)
 
 
+@hoomd.logging.modify_namespace(('hpmc', 'pair', 'ExamplePair'))
 class ExamplePair(hoomd.hpmc.pair.Pair):
-    """An example pair potential for HPMC."""
+    """An example pair potential for HPMC.
+
+    Args:
+        default_r_cut (float): Default cutoff radius :math:`[\\mathrm{length}]`.
+
+    TODO: document the class.
+
+    """
 
     _cpp_class_name = 'ExamplePairPotential'
     _ext_module = _hpmc_energy
 
-    def __init__(self):
-        pass
+    def __init__(self, default_r_cut=None):
+        if default_r_cut is None:
+            default_r_cut = float
+        else:
+            default_r_cut = float(default_r_cut)
+
+        params = hoomd.data.typeparam.TypeParameter(
+            'params',
+            'particle_types',
+            hoomd.data.parameterdicts.TypeParameterDict(
+                A=float, B=float, r_cut=default_r_cut, len_keys=2
+            ),
+        )
+        self._add_typeparam(params)

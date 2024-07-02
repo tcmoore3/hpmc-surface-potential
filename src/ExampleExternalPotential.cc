@@ -20,7 +20,9 @@ LongReal ExampleExternalPotential::particleEnergyImplementation(unsigned int typ
                                                                 bool trial)
     {
     // TODO: implement the functional form of the external potential.
-    return m_epsilon[type_i] * dot(r_i, r_i);
+    unsigned int param_index = m_type_param_index(type_i);
+    const auto& param = m_params[param_index];
+    return param.m_epsilon[type_i] * dot(r_i, r_i);
     }
 
 void ExampleExternalPotential::setParamsPython(const std::string& particle_type,

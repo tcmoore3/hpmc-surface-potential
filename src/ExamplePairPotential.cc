@@ -26,7 +26,7 @@ LongReal ExamplePairPotential::energy(const LongReal r_squared,
     const auto& param = m_params[param_index];
 
     // TODO: implement the pair interaction
-    LongReal energy = param.m_A * (r_squared - m_B);
+    LongReal energy = -param.m_A / param.m_B * fast::sqrt(r_squared) + param.m_A;
 
     return energy;
     }
