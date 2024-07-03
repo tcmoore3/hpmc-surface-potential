@@ -6,12 +6,12 @@ set(_${COMPONENT_NAME}_sources
     ExampleExternalPotential.cc
     ExamplePairPotential.cc
     module.cc
+    ExampleExternalPotential.h
+    ExamplePairPotential.h
     )
 
 # TODO: List all GPU C++ source code files in _${COMPONENT_NAME}_cu_sources.
 set(_${COMPONENT_NAME}_cu_sources
-    ExampleExternalPotential.h
-    ExamplePairPotential.h
     )
 
 # TODO: List all Python modules in python_files.
