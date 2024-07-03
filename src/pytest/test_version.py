@@ -3,9 +3,9 @@
 
 """Test the version module."""
 
-import hoomd.template
+import hoomd.hpmc_energy
 
 
 def test_version():
     """Test the version attribute."""
-    assert hoomd.template.version.version == '0.0.0'
+    assert hoomd.hpmc_energy.version.version == '0.0.0'
