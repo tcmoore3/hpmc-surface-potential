@@ -6,14 +6,11 @@
 #include "ExampleExternalPotential.h"
 #include "ExamplePairPotential.h"
 
-namespace hoomd
-    {
-namespace hpmc
-    {
+using namespace hoomd::hpmc::detail;
 
 // TODO: Set the name of the python module to match ${COMPONENT_NAME} (set in
 // CMakeLists.txt), prefixed with an underscore.
-PYBIND11_MODULE(_template, m)
+PYBIND11_MODULE(_hpmc_energy, m)
     {
     // TODO: Call export_Class(m) for each C++ class to be exported to Python.
     export_ExamplePairPotential(m);
@@ -24,6 +21,3 @@ PYBIND11_MODULE(_template, m)
     // to Python.
 #endif
     }
-
-    } // namespace hpmc
-    } // end namespace hoomd

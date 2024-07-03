@@ -20,8 +20,8 @@ class ExampleExternal(hoomd.hpmc.external.External):
     def __init__(self):
         params = hoomd.data.typeparam.TypeParameter(
             'params',
-            'particle_type',
-            hoomd.data.parameterdicts.TypeParameterDict(epsilon=float, len_keys=2),
+            'particle_types',
+            hoomd.data.parameterdicts.TypeParameterDict(epsilon=float, len_keys=1),
         )
         self._add_typeparam(params)
 

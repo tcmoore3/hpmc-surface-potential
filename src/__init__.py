@@ -5,6 +5,6 @@
 # TODO: Document your component.
 
 # TODO: Import all Python modules in your component.
-from hpmc_energy import ExampleExternal, ExamplePair
+from .hpmc_energy import ExampleExternal, ExamplePair
 
 from . import version

@@ -18,11 +18,18 @@ namespace hpmc
   This example external potential applies a harmonic trap at the center of the simulation box.
 
 */
-class ExampleExternalPotential : public PairPotential
+class ExampleExternalPotential : public ExternalPotential
     {
     public:
     ExampleExternalPotential(std::shared_ptr<SystemDefinition> sysdef);
     virtual ~ExampleExternalPotential() { }
+
+    /// Set type-pair-dependent parameters to the potential.
+    void setParamsPython(const std::string& particle_type, pybind11::dict params);
+
+    /// Get type-pair-dependent parameters.
+    pybind11::dict getParamsPython(const std::string& particle_type);
+
 
     protected:
     virtual LongReal particleEnergyImplementation(unsigned int type_i,
