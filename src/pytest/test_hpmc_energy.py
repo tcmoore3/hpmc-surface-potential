@@ -4,8 +4,8 @@
 """Test the version module."""
 
 from hoomd.conftest import device, simulation_factory, two_particle_snapshot_factory
-import hoomd.hpmc_energy
 import hoomd.hpmc.pytest.conftest
+import hoomd.hpmc_energy
 import pytest
 
 
@@ -15,7 +15,7 @@ def test_version():
 
 
 def test_pair(simulation_factory, two_particle_snapshot_factory):
-    """Test that LennardJones computes the correct energies for 1 pair."""
+    """Test that ExamplePair computes the correct energies for 1 pair."""
     pair_potential = hoomd.hpmc_energy.ExamplePair()
     pair_potential.params.default = dict(A=1.0, B=2.0, r_cut=2.0)
     r_sep = 1.5
@@ -31,7 +31,7 @@ def test_pair(simulation_factory, two_particle_snapshot_factory):
 
 
 def test_external(simulation_factory, two_particle_snapshot_factory):
-    """Test that LennardJones computes the correct energies for 1 pair."""
+    """Test that ExampleExternal computes the correct energies for 2 particles."""
     external_potential = hoomd.hpmc_energy.ExampleExternal()
     external_potential.params.default = dict(epsilon=2)
 

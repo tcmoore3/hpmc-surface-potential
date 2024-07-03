@@ -30,7 +30,6 @@ class ExampleExternalPotential : public ExternalPotential
     /// Get type-pair-dependent parameters.
     pybind11::dict getParamsPython(const std::string& particle_type);
 
-
     protected:
     virtual LongReal particleEnergyImplementation(unsigned int type_i,
                                                   const vec3<LongReal>& r_i,
