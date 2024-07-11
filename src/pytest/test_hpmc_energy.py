@@ -7,6 +7,7 @@ import hoomd.hpmc.pytest.conftest
 import hoomd.hpmc_energy
 import pytest
 
+# TODO: rewrite the unit tests to verify that your potentials function correctly.
 
 def test_version():
     """Test the version attribute."""
