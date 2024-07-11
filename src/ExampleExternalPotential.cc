@@ -39,21 +39,16 @@ pybind11::dict ExampleExternalPotential::getParamsPython(const std::string& part
 
 ExampleExternalPotential::ParamType::ParamType(pybind11::dict params)
     {
-    if (params.is_none())
-        {
-        return;
-        }
-
     pybind11::dict v = params;
 
-    // TODO: unpack per-type quanties declared in header file
+    // TODO: unpack per-type quanties from the Python dictionary to the ParamType struct.
     m_epsilon = v["epsilon"].cast<LongReal>();
     }
 
 pybind11::dict ExampleExternalPotential::ParamType::asDict()
     {
     pybind11::dict pydict;
-    // TODO; pack per-type quantities declared in header file
+    // TODO; pack per-type quantities from the ParamType struct to the Python dictionary.
     pydict["epsilon"] = m_epsilon;
     return pydict;
     }

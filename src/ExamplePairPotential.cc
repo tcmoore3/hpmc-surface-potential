@@ -25,7 +25,7 @@ LongReal ExamplePairPotential::energy(const LongReal r_squared,
     unsigned int param_index = m_type_param_index(type_i, type_j);
     const auto& param = m_params[param_index];
 
-    // TODO: implement the pair interaction
+    // TODO: implement the functional form of the pair potential.
     LongReal energy = -param.m_A / param.m_B * fast::sqrt(r_squared) + param.m_A;
 
     return energy;
@@ -62,19 +62,16 @@ pybind11::dict ExamplePairPotential::getParamsPython(pybind11::tuple particle_ty
 
 ExamplePairPotential::ParamType::ParamType(pybind11::dict params)
     {
+    // TODO: unpack per-type-pair quanties from the Python dictionary to the ParamType struct.
     m_A = params["A"].cast<LongReal>();
     m_B = params["B"].cast<LongReal>();
     m_r_cut = params["r_cut"].cast<LongReal>();
-
-    if (params.is_none())
-        {
-        return;
-        }
     }
 
 pybind11::dict ExamplePairPotential::ParamType::asDict()
     {
     pybind11::dict pydict;
+    // TODO; pack per-type-pair quantities from the ParamType struct to the Python dictionary.
     pydict["A"] = m_A;
     pydict["B"] = m_B;
     pydict["r_cut"] = m_r_cut;

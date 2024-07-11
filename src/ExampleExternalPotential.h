@@ -13,10 +13,13 @@ namespace hoomd
 namespace hpmc
     {
 
-/*** Example external potential for use with HPMC simulations.
+/** Example external potential for use with HPMC simulations.
 
-  This example external potential applies a harmonic trap at the center of the simulation box.
+    This example external potential applies a harmonic trap at the center of the simulation box.
 
+    TODO: Rename the "ExampleExternalPotential" to a class name that represents your potential.
+    "ExampleExternal" appears many times in C++, CMakeLists, and Python files. Consider using a
+    global search and replace tool.
 */
 class ExampleExternalPotential : public ExternalPotential
     {
@@ -48,7 +51,7 @@ class ExampleExternalPotential : public ExternalPotential
         /// Convert a parameter set to a dictionary.
         pybind11::dict asDict();
 
-        // TODO: add per-type quantities as needed.
+        // TODO: Rename m_epsilon and add per-type quantities as needed.
         /// Prefactor in harmonic potential.
         LongReal m_epsilon;
         };

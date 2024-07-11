@@ -21,6 +21,8 @@ class ExampleExternal(hoomd.hpmc.external.External):
         params = hoomd.data.typeparam.TypeParameter(
             'params',
             'particle_types',
+            # TODO: Add entries to TypeParameterDict matching those in the C++
+            # ParamType.
             hoomd.data.parameterdicts.TypeParameterDict(epsilon=float, len_keys=1),
         )
         self._add_typeparam(params)
@@ -49,6 +51,8 @@ class ExamplePair(hoomd.hpmc.pair.Pair):
         params = hoomd.data.typeparam.TypeParameter(
             'params',
             'particle_types',
+            # TODO: Add entries to TypeParameterDict matching those in the C++
+            # ParamType.
             hoomd.data.parameterdicts.TypeParameterDict(
                 A=float, B=float, r_cut=default_r_cut, len_keys=2
             ),

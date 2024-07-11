@@ -1,9 +1,9 @@
-# HOOMD-blue component template
+# HOOMD-blue component template for HPMC interaction energies
 
-`hoomd-component-template` provides a framework to develop components that extend
-[**HOOMD-blue**](https://glotzerlab.engin.umich.edu/hoomd-blue/). It includes template C++ and
-Python modules, an example unit test, CMake scripts to build the component, and GitHub Actions
-workflows.
+`hpmc-energy-template` provides a framework to develop components that extend
+[**HOOMD-blue**](https://glotzerlab.engin.umich.edu/hoomd-blue/) with new pairwise and
+external potentials for HPMC. It includes template C++ and Python modules, an example
+unit test, CMake scripts to build the component, and GitHub Actions workflows.
 
 ## Building the component
 
@@ -29,14 +29,14 @@ To build this component:
 
 Once installed, the template is available for import via:
 ```
-import hoomd.template
+import hoomd.hpmc_energy
 ```
 
 ## Creating a new component
 
 To create a new component:
 
-1. Fork [hoomd-component-template](https://github.com/glotzerlab/hoomd-component-template/).
+1. Fork [hpmc-energy-template](https://github.com/glotzerlab/hpmc-energy-template/).
 2. Address all **TODO** comments (including those in `.github/`)
 3. Add C++ and Python files to `src/`.
 4. Add unit tests in `src/pytest`.
@@ -55,7 +55,7 @@ new GitHub release with automatically generated release notes.
 ## Maintaining your component
 
 The HOOMD-blue developers will periodically update
-[hoomd-component-template](https://github.com/glotzerlab/hoomd-component-template/), including
+[hpmc-energy-template](https://github.com/glotzerlab/hpmc-energy-template/), including
 updates to the GitHub Actions workflow, pre-commit configuration, and CMake scripts. Merge these
 changes into your fork to support the latest version of HOOMD-blue.
 

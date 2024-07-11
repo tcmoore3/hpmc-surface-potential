@@ -12,7 +12,11 @@ namespace hoomd
 namespace hpmc
     {
 
-/*** Example pair potential for use with HPMC simulations.
+/** Example pair potential for use with HPMC simulations.
+
+    TODO: Rename the "ExamplePairPotential" to a class name that represents your potential.
+    "ExamplePair" appears many times in C++, CMakeLists, and Python files. Consider using a global
+    search and replace tool.
  */
 class ExamplePairPotential : public PairPotential
     {
@@ -50,7 +54,7 @@ class ExamplePairPotential : public PairPotential
         /// Convert a parameter set to a dictionary.
         pybind11::dict asDict();
 
-        // TODO: rename/add parameters as needed
+        // TODO: rename or add parameters as needed
         LongReal m_A;
         LongReal m_B;
         LongReal m_r_cut;
