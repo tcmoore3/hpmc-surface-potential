@@ -26,15 +26,11 @@ ignore = [
   "D107", # Do not document __init__ separately from the class.
   "PLR09", # Allow "too many" statements/arguments/etc...
   "N816", # Allow mixed case names like kT.
-  "D301", # Allow backslashes in docstrings
 ]
 
 [lint.per-file-ignores]
 
 "__init__.py" = ["F401", # __init__.py import submodules for use by the package importer.
-]
-"test_hpmc_energy.py" = ["F401",
-    "F811", # import pytest fixtures from hoomd w/o warning,
 ]
 
 [lint.pydocstyle]

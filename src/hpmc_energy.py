@@ -28,10 +28,10 @@ class ExampleExternal(hoomd.hpmc.external.External):
 
 @hoomd.logging.modify_namespace(('hpmc', 'pair', 'ExamplePair'))
 class ExamplePair(hoomd.hpmc.pair.Pair):
-    """An example pair potential for HPMC.
+    r"""An example pair potential for HPMC.
 
     Args:
-        default_r_cut (float): Default cutoff radius :math:`[\\mathrm{length}]`.
+        default_r_cut (float): Default cutoff radius :math:`[\mathrm{length}]`.
 
     TODO: document the class.
 

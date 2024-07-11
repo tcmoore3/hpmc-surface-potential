@@ -6,7 +6,6 @@
 import hoomd.hpmc.pytest.conftest
 import hoomd.hpmc_energy
 import pytest
-from hoomd.conftest import device, simulation_factory, two_particle_snapshot_factory
 
 
 def test_version():
