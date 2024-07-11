@@ -31,6 +31,7 @@ Once installed, the template is available for import via:
 ```
 import hoomd.template
 ```
+(replace `template` with the `COMPONENT_NAME` you set in `src/CMakeLists.txt`).
 
 ## Creating a new component
 
@@ -47,7 +48,8 @@ To create a new component:
 When you push your changes to GitHub, the [unit test workflow](.github/workflows/unit-test.yaml)
 compile your code on the CPU (with and without MPI) and on the GPU (with and without MPI). The
 workflow also executes the unit tests on the CPU. You should run GPU unit tests locally, as GitHub
-does not provide free GPU runners for GitHub Actions.
+does not provide free GPU runners for GitHub Actions. As a one time step, you need to navigate to
+the "Actions" tab of your repository and confirm that GitHub should execute actions for your fork.
 
 When you push a new tag, the [release workflow](.github/workflows/release.yaml) will create a
 new GitHub release with automatically generated release notes.
