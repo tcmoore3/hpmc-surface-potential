@@ -9,6 +9,7 @@ import pytest
 
 # TODO: rewrite the unit tests to verify that your potentials function correctly.
 
+
 def test_version():
     """Test the version attribute."""
     assert hoomd.hpmc_energy.version.version == '0.0.0'
