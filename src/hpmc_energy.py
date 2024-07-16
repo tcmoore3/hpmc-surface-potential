@@ -4,6 +4,7 @@
 """Template HOOMD-blue component."""
 
 import hoomd
+import hoomd.conftest
 from hoomd.hpmc_energy import _hpmc_energy
 
 
