@@ -3,14 +3,13 @@
 
 """Test the version module."""
 
-import hoomd.hpmc.pytest.conftest
 import hoomd.hpmc_energy
 import pytest
 
 # TODO: rewrite the unit tests to verify that your potentials function correctly.
 
 
-@pytest.mark.cpu
+@pytest.mark.cpu()
 def test_pair(simulation_factory, two_particle_snapshot_factory):
     """Test that ExamplePair computes the correct energies for 1 pair."""
     pair_potential = hoomd.hpmc_energy.ExamplePair()
@@ -27,7 +26,7 @@ def test_pair(simulation_factory, two_particle_snapshot_factory):
     assert sphere.pair_energy == pytest.approx(expected_energy)
 
 
-@pytest.mark.cpu
+@pytest.mark.cpu()
 def test_external(simulation_factory, two_particle_snapshot_factory):
     """Test that ExampleExternal computes the correct energies for 2 particles."""
     external_potential = hoomd.hpmc_energy.ExampleExternal()
