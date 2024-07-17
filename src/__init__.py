@@ -6,3 +6,4 @@
 
 # TODO: Import all Python modules in your component.
 from . import version
+from .hpmc_energy import ExampleExternal, ExamplePair
