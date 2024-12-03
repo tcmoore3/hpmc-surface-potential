@@ -13,13 +13,13 @@ ExampleExternalPotential::ExampleExternalPotential(std::shared_ptr<SystemDefinit
     {
     }
 
-LongReal particleEnergyImplementation(uint64_t timestep,
-                                      unsigned int tag_i,
-                                      unsigned int type_i,
-                                      const vec3<LongReal>& r_i,
-                                      const quat<LongReal>& q_i,
-                                      LongReal charge_i,
-                                      Trial trial = Trial::None)
+LongReal ExampleExternalPotential::particleEnergyImplementation(uint64_t timestep,
+                                                                unsigned int tag_i,
+                                                                unsigned int type_i,
+                                                                const vec3<LongReal>& r_i,
+                                                                const quat<LongReal>& q_i,
+                                                                LongReal charge_i,
+                                                                Trial trial = Trial::None)
     {
     // TODO: implement the functional form of the external potential.
     const auto& param = m_params[type_i];
