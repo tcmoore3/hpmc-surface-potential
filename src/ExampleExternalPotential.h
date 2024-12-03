@@ -34,11 +34,13 @@ class ExampleExternalPotential : public ExternalPotential
     pybind11::dict getParamsPython(const std::string& particle_type);
 
     protected:
-    virtual LongReal particleEnergyImplementation(unsigned int type_i,
-                                                  const vec3<LongReal>& r_i,
-                                                  const quat<LongReal>& q_i,
-                                                  LongReal charge_i,
-                                                  bool trial);
+    LongReal particleEnergyImplementation(uint64_t timestep,
+                                          unsigned int tag_i,
+                                          unsigned int type_i,
+                                          const vec3<LongReal>& r_i,
+                                          const quat<LongReal>& q_i,
+                                          LongReal charge_i,
+                                          Trial trial = Trial::None) override;
 
     /// per-type parameters
     struct ParamType

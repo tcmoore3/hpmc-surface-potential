@@ -39,7 +39,7 @@ endif()
 # libraries) as needed.
 target_link_libraries(_${COMPONENT_NAME}
                       PUBLIC HOOMD::_hoomd
-                      PUBLIC HOOMD::_md
+                      PUBLIC HOOMD::_hpmc
                       )
 
 # Install the library.
