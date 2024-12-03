@@ -19,7 +19,7 @@ LongReal ExampleExternalPotential::particleEnergyImplementation(uint64_t timeste
                                                                 const vec3<LongReal>& r_i,
                                                                 const quat<LongReal>& q_i,
                                                                 LongReal charge_i,
-                                                                Trial trial = Trial::None)
+                                                                Trial trial)
     {
     // TODO: implement the functional form of the external potential.
     const auto& param = m_params[type_i];
