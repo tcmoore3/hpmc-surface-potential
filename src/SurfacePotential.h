@@ -17,21 +17,44 @@ namespace hpmc
 
     This example external potential applies a harmonic trap at the center of the simulation box.
 
-    TODO: Rename the "ExampleExternalPotential" to a class name that represents your potential.
-    "ExampleExternal" appears many times in C++, CMakeLists, and Python files. Consider using a
-    global search and replace tool.
 */
-class ExampleExternalPotential : public ExternalPotential
+class SurfacePotential : public ExternalPotential
     {
     public:
-    ExampleExternalPotential(std::shared_ptr<SystemDefinition> sysdef);
-    virtual ~ExampleExternalPotential() { }
+    SurfacePotential(std::shared_ptr<SystemDefinition> sysdef);
+    virtual ~SurfacePotential() { }
 
     /// Set type-pair-dependent parameters to the potential.
     void setParamsPython(const std::string& particle_type, pybind11::dict params);
 
     /// Get type-pair-dependent parameters.
     pybind11::dict getParamsPython(const std::string& particle_type);
+
+    vec3<LongReal> getPlaneOrigin() const
+        {
+        return m_plane_origin;
+        }
+
+    void setPlaneOrigin(pybind11::tuple origin)
+        {
+        vec3<LongReal> new_origin(origin[0].cast<LongReal>(),
+                                  origin[1].cast<LongReal>(),
+                                  origin[2].cast<LongReal>());
+        m_plane_origin = new_origin;
+        }
+
+    vec3<LongReal> getPlaneNormal() const
+        {
+        return m_plane_normal;
+        }
+
+    void setPlaneNormal(pybind11::tuple normal)
+        {
+        vec3<LongReal> new_normal(normal[0].cast<LongReal>(),
+                                  normal[1].cast<LongReal>(),
+                                  normal[2].cast<LongReal>());
+        m_plane_normal = normalize(new_normal);
+        }
 
     protected:
     LongReal particleEnergyImplementation(uint64_t timestep,
@@ -53,19 +76,20 @@ class ExampleExternalPotential : public ExternalPotential
         /// Convert a parameter set to a dictionary.
         pybind11::dict asDict();
 
-        // TODO: Rename m_epsilon and add per-type quantities as needed.
-        /// Prefactor in harmonic potential.
         LongReal m_epsilon;
+        LongReal m_rcut;
         };
 
     /// Parameters per type.
     std::vector<ParamType> m_params;
+    vec3<LongReal> m_plane_origin;
+    vec3<LongReal> m_plane_normal;
     };
 
 namespace detail
     {
 //! Export the ExampleUpdater class to python
-void export_ExampleExternalPotential(pybind11::module& m);
+void export_SurfacePotential(pybind11::module& m);
 
     } // end namespace detail
 
