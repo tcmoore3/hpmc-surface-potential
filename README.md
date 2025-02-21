@@ -12,19 +12,19 @@ To build this component:
 1. Build and install **HOOMD-blue** from source.
 2. Obtain the component's source.
     ```
-    $ git clone https://github.com/glotzerlab/hoomd-component-template
+    $ git clone https://github.com/glotzerlab/hpmc-energy-template
     ```
 3. Configure.
     ```
-    $ cmake -B build/hoomd-component-template -S hoomd-component-template
+    $ cmake -B build/hpmc-energy-template -S hpmc-energy-template
     ```
 4. Build the component.
     ```
-    $ cmake --build build/hoomd-component-template
+    $ cmake --build build/hpmc-energy-template
     ```
 5. Install the component.
     ```
-    $ cmake --install build/hoomd-component-template
+    $ cmake --install build/hpmc-energy-template
     ```
 
 Once installed, the template is available for import via:
