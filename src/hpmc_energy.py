@@ -8,39 +8,18 @@ import hoomd.conftest
 from hoomd.hpmc_energy import _hpmc_energy
 
 
-class ExampleExternal(hoomd.hpmc.external.External):
-    """An example external potential for HPMC.
-
-    TODO: document the class.
-
-    """
-
-    _cpp_class_name = 'ExampleExternalPotential'
-    _ext_module = _hpmc_energy
-
-    def __init__(self):
-        params = hoomd.data.typeparam.TypeParameter(
-            'params',
-            'particle_types',
-            # TODO: Add entries to TypeParameterDict matching those in the C++
-            # ParamType.
-            hoomd.data.parameterdicts.TypeParameterDict(epsilon=float, len_keys=1),
-        )
-        self._add_typeparam(params)
-
-
 @hoomd.logging.modify_namespace(('hpmc', 'pair', 'ExamplePair'))
-class ExamplePair(hoomd.hpmc.pair.Pair):
-    r"""An example pair potential for HPMC.
+class SphericalHarmonic(hoomd.hpmc.pair.Pair):
+    r"""An anisotropic pair potential based on a spherical harmonic for HPMC.
 
     Args:
         default_r_cut (float): Default cutoff radius :math:`[\mathrm{length}]`.
 
-    TODO: document the class.
+    l = 3, m = 2 gives a fairly tetrahedral-looking patchy particle. Try it.
 
     """
 
-    _cpp_class_name = 'ExamplePairPotential'
+    _cpp_class_name = 'SphericalHarmonicsPairPotentail'
     _ext_module = _hpmc_energy
 
     def __init__(self, default_r_cut=None):
@@ -55,7 +34,7 @@ class ExamplePair(hoomd.hpmc.pair.Pair):
             # TODO: Add entries to TypeParameterDict matching those in the C++
             # ParamType.
             hoomd.data.parameterdicts.TypeParameterDict(
-                A=float, B=float, r_cut=default_r_cut, len_keys=2
+                epsilon=float, l=float, m=float, r_cut=default_r_cut, len_keys=2
             ),
         )
         self._add_typeparam(params)

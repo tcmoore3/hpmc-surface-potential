@@ -14,15 +14,12 @@ namespace hpmc
 
 /** Example pair potential for use with HPMC simulations.
 
-    TODO: Rename the "ExamplePairPotential" to a class name that represents your potential.
-    "ExamplePair" appears many times in C++, CMakeLists, and Python files. Consider using a global
-    search and replace tool.
  */
-class ExamplePairPotential : public PairPotential
+class SphericalHarmonicsPairPotentail : public PairPotential
     {
     public:
-    ExamplePairPotential(std::shared_ptr<SystemDefinition> sysdef);
-    virtual ~ExamplePairPotential() { }
+    SphericalHarmonicsPairPotentail(std::shared_ptr<SystemDefinition> sysdef);
+    virtual ~SphericalHarmonicsPairPotentail() { }
 
     virtual LongReal energy(const LongReal r_squared,
                             const vec3<LongReal>& r_ij,
@@ -55,8 +52,9 @@ class ExamplePairPotential : public PairPotential
         pybind11::dict asDict();
 
         // TODO: rename or add parameters as needed
-        LongReal m_A;
-        LongReal m_B;
+        LongReal m_epsilon;
+        LongReal m_l;
+        LongReal m_m;
         LongReal m_r_cut;
         };
 
@@ -67,7 +65,7 @@ class ExamplePairPotential : public PairPotential
 namespace detail
     {
 //! Export the ExampleUpdater class to python
-void export_ExamplePairPotential(pybind11::module& m);
+void export_SphericalHarmonicsPairPotentail(pybind11::module& m);
 
     } // end namespace detail
 
