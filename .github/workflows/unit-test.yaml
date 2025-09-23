@@ -22,7 +22,7 @@ env:
   OMPI_MCA_btl: "vader,self"
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
   cancel-in-progress: true
 
 on:
@@ -78,18 +78,16 @@ jobs:
         submodules: true
         ref: ${{ env.HOOMD_BLUE_VERSION }}
     - name: Create Python Environment
-      uses: mamba-org/setup-micromamba@v2
+      uses: prefix-dev/setup-pixi@194d461b21b6c5717c722ffc597fa91ed2ff29fa # v0.9.1
       with:
-        environment-name: test
-        environment-file: hoomd-blue/.github/workflows/environments/py312-conda-lock.yml
-        micromamba-root-path: ${{ github.workspace }}/micromamba
+        pixi-version: v0.54.1
+        cache: false
+        activate-environment: true
+        manifest-path: hoomd-blue/pixi.toml
 
     - name: Configure conda environment variables
       run: |
         echo "PYTHONPATH=$GITHUB_WORKSPACE/install" >> $GITHUB_ENV
-        echo "CONDA_PREFIX=$MAMBA_ROOT_PREFIX/envs/test" >> $GITHUB_ENV
-        echo "CMAKE_PREFIX_PATH=$MAMBA_ROOT_PREFIX/envs/test" >> $GITHUB_ENV
-        echo "$MAMBA_ROOT_PREFIX/envs/test/bin" >> $GITHUB_PATH
 
     - name: Configure HOOMD-blue
       if: steps.cache.outputs.cache-hit != 'true'
