@@ -60,6 +60,10 @@ jobs:
           enable_mpi: 'ON'
 
     steps:
+    - name: Checkout component
+      uses: actions/checkout@v4
+      with:
+        path: component
     - name: Restore cached HOOMD-blue build
       id: cache
       uses: actions/cache/restore@v4
@@ -83,7 +87,7 @@ jobs:
         pixi-version: v0.54.1
         cache: false
         activate-environment: true
-        manifest-path: hoomd-blue/pixi.toml
+        manifest-path: component/pixi.toml
 
     - name: Configure conda environment variables
       run: |
@@ -115,10 +119,6 @@ jobs:
         path: install
         key: hoomd-blue-${{ env.HOOMD_BLUE_VERSION }}-${{ matrix.enable_mpi }}-gpu-${{ matrix.enable_gpu }}
 
-    - name: Checkout component
-      uses: actions/checkout@v4
-      with:
-        path: component
     - name: Configure component
       run: CMAKE_PREFIX_PATH=${GITHUB_WORKSPACE}/install cmake -S component -B build-component -GNinja -DCMAKE_BUILD_TYPE=Release
     - name: Build component
