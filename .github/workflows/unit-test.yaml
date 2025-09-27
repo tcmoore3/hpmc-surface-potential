@@ -9,7 +9,7 @@ env:
 
   #############################################################################################
   # HOOMD-blue version to build.
-  HOOMD_BLUE_VERSION: v5.3.0
+  HOOMD_BLUE_VERSION: v5.4.0
   # prevent deadlocked MPI tests from causing the job to cancel
   MPIEXEC_TIMEOUT: 3000
   # allow mpirun to execute as root in the tests
@@ -22,7 +22,7 @@ env:
   OMPI_MCA_btl: "vader,self"
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
   cancel-in-progress: true
 
 on:
@@ -41,7 +41,7 @@ jobs:
     name: Build and test [${{ matrix.name }}]
     runs-on: ubuntu-24.04
     container:
-      image: nvidia/cuda:12.5.0-devel-ubuntu22.04
+      image: nvidia/cuda:12.5.0-devel-ubuntu22.04@sha256:4b46c69e223d971f0fb279fd6381a0f3a057e09ba6de08bfbf7db751b1ad6db1
     strategy:
       fail-fast: false
       matrix:
@@ -60,9 +60,13 @@ jobs:
           enable_mpi: 'ON'
 
     steps:
+    - name: Checkout component
+      uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
+      with:
+        path: component
     - name: Restore cached HOOMD-blue build
       id: cache
-      uses: actions/cache/restore@v4
+      uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
       with:
         path: install
         key: hoomd-blue-${{ env.HOOMD_BLUE_VERSION }}-${{ matrix.enable_mpi }}-gpu-${{ matrix.enable_gpu }}
@@ -71,25 +75,23 @@ jobs:
         apt-get update
         apt-get install git --yes
     - name: Checkout HOOMD-blue
-      uses: actions/checkout@v4
+      uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
       with:
         repository: glotzerlab/hoomd-blue
         path: hoomd-blue
         submodules: true
         ref: ${{ env.HOOMD_BLUE_VERSION }}
     - name: Create Python Environment
-      uses: mamba-org/setup-micromamba@v2
+      uses: prefix-dev/setup-pixi@194d461b21b6c5717c722ffc597fa91ed2ff29fa # v0.9.1
       with:
-        environment-name: test
-        environment-file: hoomd-blue/.github/workflows/environments/py312-conda-lock.yml
-        micromamba-root-path: ${{ github.workspace }}/micromamba
+        pixi-version: v0.54.1
+        cache: false
+        activate-environment: true
+        manifest-path: component/pixi.toml
 
     - name: Configure conda environment variables
       run: |
         echo "PYTHONPATH=$GITHUB_WORKSPACE/install" >> $GITHUB_ENV
-        echo "CONDA_PREFIX=$MAMBA_ROOT_PREFIX/envs/test" >> $GITHUB_ENV
-        echo "CMAKE_PREFIX_PATH=$MAMBA_ROOT_PREFIX/envs/test" >> $GITHUB_ENV
-        echo "$MAMBA_ROOT_PREFIX/envs/test/bin" >> $GITHUB_PATH
 
     - name: Configure HOOMD-blue
       if: steps.cache.outputs.cache-hit != 'true'
@@ -112,15 +114,11 @@ jobs:
       working-directory: build-hoomd-blue
     - name: Cache HOOMD-blue build
       if: steps.cache.outputs.cache-hit != 'true'
-      uses: actions/cache/save@v4
+      uses: actions/cache/save@0057852bfaa89a56745cba8c7296529d2fc39830 # v4
       with:
         path: install
         key: hoomd-blue-${{ env.HOOMD_BLUE_VERSION }}-${{ matrix.enable_mpi }}-gpu-${{ matrix.enable_gpu }}
 
-    - name: Checkout component
-      uses: actions/checkout@v4
-      with:
-        path: component
     - name: Configure component
       run: CMAKE_PREFIX_PATH=${GITHUB_WORKSPACE}/install cmake -S component -B build-component -GNinja -DCMAKE_BUILD_TYPE=Release
     - name: Build component
