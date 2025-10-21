@@ -12,19 +12,19 @@ To build this component:
 1. Build and install **HOOMD-blue** from source.
 2. Obtain the component's source.
     ```
-    $ git clone https://github.com/glotzerlab/hoomd-component-template
+    $ git clone https://github.com/glotzerlab/hpmc-energy-template
     ```
 3. Configure.
     ```
-    $ cmake -B build/hoomd-component-template -S hoomd-component-template
+    $ cmake -B build/hpmc-energy-template -S hpmc-energy-template
     ```
 4. Build the component.
     ```
-    $ cmake --build build/hoomd-component-template
+    $ cmake --build build/hpmc-energy-template
     ```
 5. Install the component.
     ```
-    $ cmake --install build/hoomd-component-template
+    $ cmake --install build/hpmc-energy-template
     ```
 
 Once installed, the template is available for import via:
@@ -41,7 +41,7 @@ To create a new component:
 2. Address all **TODO** comments (including those in `.github/`)
 3. Add C++ and Python files to `src/`.
 4. Add unit tests in `src/pytest`.
-5. Format and check code style with [pre-commit](https://pre-commit.com/).
+5. Format and check code style with [prek](https://prek.j178.dev/).
 
 ## Using the provided GitHub Actions configuration
 
@@ -58,7 +58,7 @@ new GitHub release with automatically generated release notes.
 
 The HOOMD-blue developers will periodically update
 [hpmc-energy-template](https://github.com/glotzerlab/hpmc-energy-template/), including
-updates to the GitHub Actions workflow, pre-commit configuration, and CMake scripts. Merge these
+updates to the GitHub Actions workflow, prek configuration, and CMake scripts. Merge these
 changes into your fork to support the latest version of HOOMD-blue.
 
 ## Documenting and releasing your component
