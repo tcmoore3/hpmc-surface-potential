@@ -78,6 +78,9 @@ class SurfacePotential : public ExternalPotential
 
         LongReal m_epsilon;
         LongReal m_rcut;
+        LongReal m_sigma_2;
+        std::vector<vec3<LongReal>> m_position;
+        std::vector<vec3<LongReal>> m_normal;
         };
 
     /// Parameters per type.

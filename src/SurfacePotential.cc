@@ -21,18 +21,29 @@ LongReal SurfacePotential::particleEnergyImplementation(uint64_t timestep,
                                                         LongReal charge_i,
                                                         Trial trial)
     {
-    // TODO: implement the functional form of the external potential.
     const auto& param = m_params[type_i];
 
-    LongReal distance_to_wall_squared = dot(m_plane_normal, r_i - m_plane_origin);
-    if (distance_to_wall_squared > param.m_rcut * param.m_rcut)
+    auto num_facets = static_cast<unsigned int>(param.m_position.size());
+    for (unsigned int i = 0; i < num_facets; i++)
         {
-        return 0;
+        auto r_sq = dot(m_plane_normal, r_i - m_plane_origin);
+        if (r_sq > param.m_rcut * param.m_rcut)
+            {
+            continue;
+            }
+        auto normal = rotate(q_i, param.m_normal[i]);
+        if (dot(-normal, m_plane_normal) < 0.5)
+            {
+            continue;
+            }
+        auto pos = param.m_position[i];
+        LongReal rmd_over_sigma_2 = r_sq / param.m_sigma_2;
+        LongReal exp_val = fast::exp(-LongReal(1.0) / LongReal(2.0) * rmd_over_sigma_2);
+        LongReal f_orientation = fast::sqrt(dot(-normal, m_plane_normal));
+        LongReal energy = param.m_epsilon * exp_val;
+        return energy * f_orientation;
         }
-    else
-        {
-        return param.m_epsilon / distance_to_wall_squared;
-        }
+    return 0.0;
     }
 
 void SurfacePotential::setParamsPython(const std::string& particle_type, pybind11::dict params)
@@ -51,9 +62,28 @@ SurfacePotential::ParamType::ParamType(pybind11::dict params)
     {
     pybind11::dict v = params;
 
-    // TODO: unpack per-type quanties from the Python dictionary to the ParamType struct.
     m_epsilon = v["epsilon"].cast<LongReal>();
     m_rcut = v["r_cut"].cast<LongReal>();
+    m_sigma_2 = v["sigma"].cast<LongReal>() * v["sigma"].cast<LongReal>();
+
+    // unpack vector quantities
+    pybind11::list positions = v["positions"];
+    pybind11::list normals = v["normals"];
+    auto N = pybind11::len(positions);
+    m_normal.resize(N);
+    m_position.resize(N);
+    for (unsigned int i = 0; i < N; i++)
+        {
+        pybind11::tuple pos_python = positions[i];
+        pybind11::tuple normal_python = normals[i];
+
+        m_position[i] = vec3<LongReal>(pos_python[0].cast<LongReal>(),
+                                       pos_python[1].cast<LongReal>(),
+                                       pos_python[2].cast<LongReal>());
+        m_normal[i] = vec3<LongReal>(normal_python[0].cast<LongReal>(),
+                                     normal_python[1].cast<LongReal>(),
+                                     normal_python[2].cast<LongReal>());
+        }
     }
 
 pybind11::dict SurfacePotential::ParamType::asDict()
@@ -61,6 +91,9 @@ pybind11::dict SurfacePotential::ParamType::asDict()
     pybind11::dict pydict;
     pydict["epsilon"] = m_epsilon;
     pydict["r_cut"] = m_rcut;
+    pydict["sigma"] = sqrt(m_sigma_2);
+    pydict["positions"] = m_position;
+    pydict["normals"] = m_normal;
     return pydict;
     }
 
