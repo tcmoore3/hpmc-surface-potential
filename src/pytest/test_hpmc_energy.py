@@ -7,8 +7,6 @@ import hoomd.hpmc_energy
 
 import pytest
 
-# TODO: rewrite the unit tests to verify that your potentials function correctly.
-
 
 @pytest.mark.cpu
 def test_pair(simulation_factory, two_particle_snapshot_factory):

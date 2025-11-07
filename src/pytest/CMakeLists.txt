@@ -1,4 +1,3 @@
-# TODO: List all pytest files in test_files.
 set(test_files __init__.py
           test_hpmc_energy.py
     )
