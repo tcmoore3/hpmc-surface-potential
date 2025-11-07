@@ -77,8 +77,9 @@ class SurfacePotential : public ExternalPotential
         pybind11::dict asDict();
 
         LongReal m_epsilon;
-        LongReal m_rcut;
+        LongReal m_rcut; // maximum distance between facet center and wall for interaction
         LongReal m_sigma_2;
+        LongReal m_max_extent; // max dist for interaction b/t particle center and wall
         std::vector<vec3<LongReal>> m_position;
         std::vector<vec3<LongReal>> m_normal;
         };

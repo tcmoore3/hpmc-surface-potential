@@ -35,7 +35,7 @@ class SurfacePotential(hoomd.hpmc.external.External):
             'particle_types',
             hoomd.data.parameterdicts.TypeParameterDict(
                 epsilon=float,
-                r_cut=hoomd.data.typeconverter.positive_real,
+                r_cut=hoomd.data.typeconverter.nonnegative_real,
                 sigma=hoomd.data.typeconverter.positive_real,
                 positions=[(float,) * 3],
                 normals=[(float,) * 3],

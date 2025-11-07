@@ -21,29 +21,36 @@ LongReal SurfacePotential::particleEnergyImplementation(uint64_t timestep,
                                                         LongReal charge_i,
                                                         Trial trial)
     {
+    // see if _particle_ is within interaction range
+    // r_sq = distance from particle center to wall
     const auto& param = m_params[type_i];
+    auto r_sq_i = dot(m_plane_normal, r_i - m_plane_origin);
+    if (r_sq_i > param.m_max_extent * param.m_max_extent)
+        {
+        return 0.0;
+        }
 
     auto num_facets = static_cast<unsigned int>(param.m_position.size());
+    LongReal energy = 0.0;
     for (unsigned int i = 0; i < num_facets; i++)
         {
-        auto r_sq = dot(m_plane_normal, r_i - m_plane_origin);
+        auto facet_pos = rotate(q_i, param.m_position[i]) + r_i;
+        auto r_sq = dot(m_plane_normal, facet_pos - m_plane_origin);
         if (r_sq > param.m_rcut * param.m_rcut)
             {
             continue;
             }
-        auto normal = rotate(q_i, param.m_normal[i]);
-        if (dot(-normal, m_plane_normal) < 0.5)
+        auto facet_normal = rotate(q_i, param.m_normal[i]);
+        if (dot(-facet_normal, m_plane_normal) <= 0.0)
             {
             continue;
             }
-        auto pos = param.m_position[i];
         LongReal rmd_over_sigma_2 = r_sq / param.m_sigma_2;
         LongReal exp_val = fast::exp(-LongReal(1.0) / LongReal(2.0) * rmd_over_sigma_2);
-        LongReal f_orientation = fast::sqrt(dot(-normal, m_plane_normal));
-        LongReal energy = param.m_epsilon * exp_val;
-        return energy * f_orientation;
+        LongReal f_orientation = fast::sqrt(dot(-facet_normal, m_plane_normal));
+        energy += param.m_epsilon * exp_val * f_orientation;
         }
-    return 0.0;
+    return energy;
     }
 
 void SurfacePotential::setParamsPython(const std::string& particle_type, pybind11::dict params)
@@ -94,6 +101,7 @@ pybind11::dict SurfacePotential::ParamType::asDict()
     pydict["sigma"] = sqrt(m_sigma_2);
     pydict["positions"] = m_position;
     pydict["normals"] = m_normal;
+    pydict["max_extent"] = m_max_extent;
     return pydict;
     }
 
