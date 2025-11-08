@@ -79,7 +79,7 @@ class SurfacePotential : public ExternalPotential
         LongReal m_epsilon;
         LongReal m_rcut; // maximum distance between facet center and wall for interaction
         LongReal m_sigma_2;
-        LongReal m_max_extent; // max dist for interaction b/t particle center and wall
+        LongReal m_max_extent_sq; // max dist for interaction b/t particle center and wall
         std::vector<vec3<LongReal>> m_position;
         std::vector<vec3<LongReal>> m_normal;
         };
