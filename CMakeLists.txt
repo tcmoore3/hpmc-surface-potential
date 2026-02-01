@@ -4,7 +4,7 @@ CMAKE_MINIMUM_REQUIRED(VERSION 3.9 FATAL_ERROR)
 project(hpmc_surface_potential LANGUAGES C CXX)
 
 # Find the installed HOOMD.
-find_package(HOOMD 5.0.0 REQUIRED)
+find_package(HOOMD 6.0.0 REQUIRED)
 
 message(STATUS "Found HOOMD ${HOOMD_VERSION}: ${HOOMD_INSTALL_PREFIX}/${PYTHON_SITE_INSTALL_DIR}")
 
